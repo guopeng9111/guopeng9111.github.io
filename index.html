@@ -31,7 +31,7 @@
   
     <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_8z08qcz5sq3.css">
   
-  <link rel="stylesheet" href="/css/style.css?v=1686705747175">
+  <link rel="stylesheet" href="/css/style.css?v=1686705878501">
 <meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="mdui-drawer-body-left">
@@ -245,14 +245,13 @@
         
         <div class="nexmoe-post-meta nexmoe-rainbow">
             <a><i class="nexmoefont icon-calendar-fill"></i>2023年06月14日</a>
-            <a><i class="nexmoefont icon-areachart"></i>230 字</a>
+            <a><i class="nexmoefont icon-areachart"></i>231 字</a>
             <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
         </div>
         
         <article>
             
-                <p>1、在安装docker之前，先初始化机器环境，如果之前安装过旧版本的docker，应该先使用命令进行卸载。<br>yum remove docker <br>                  docker-client <br>                  docker-client-latest <br>                  docker-common <br>                  docker-latest <br>                  docker-latest-logrotate <br>                  docker-logrotate <br>                  docker-selinux <br>                  docker-engine-selinux <br>                  docker-engine <br>                  docker-ce<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/docker/1.png" alt="docker" class="lazyload"><br>2.Yum源配置<br>备份配置文件<br>mv &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo.backup<br>wget -O &#x2F;etc&#x2F;yum.repos.d&#x2F;CentOS-Base.repo <a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/repo/Centos-7.repo">http://mirrors.aliyun.com/repo/Centos-7.repo</a><br>wget -O &#x2F;etc&#x2F;yum.repos.d&#x2F;epel.repo <a target="_blank" rel="noopener" href="http://mirrors.aliyun.com/repo/epel-7.repo">http://mirrors.aliyun.com/repo/epel-7.repo</a><br>yum clean all<br>yum makecache<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/docker/2.png" alt="docker" class="lazyload"><br>3.docker安装<br>（1）需要虚拟机连网，安装yum工具<br>yum install -y yum-utils <br>           device-mapper-persistent-data <br>           lvm2 –skip-broken<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/docker/3.png" alt="docker" class="lazyload"><br>（2）更新本地镜像源<br>um-config-manager <br>    –add-repo <br>    <a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo">https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</a><br>sed -i ‘s&#x2F;download.docker.com&#x2F;mirrors.aliyun.com/docker-ce&#x2F;g’ &#x2F;etc&#x2F;yum.repos.d&#x2F;docker-ce.repo<br>yum makecache fast<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/docker/4.png" alt="docker" class="lazyload"><br>（3）docker安装<br>输入命令：yum install -y docker-ce<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/docker/5.png" alt="docker" class="lazyload"><br> Docker安装完毕！</p>
-
+                <p>docker</p>
             
         </article>
     </div>
@@ -1077,7 +1076,7 @@
 <script src="/lib/fancybox/js/jquery.fancybox.min.js"></script>
 
 
-<script src="/js/app.js?v=1686705747176"></script>
+<script src="/js/app.js?v=1686705878502"></script>
 
 <script src="https://lib.baomitu.com/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
 <script>
@@ -1094,8 +1093,6 @@
 
 
 <!-- hexo injector body_end start -->
-<script src="/js/clock.js"></script>
-
 <script src="https://lib.baomitu.com/clipboard.js/2.0.8/clipboard.min.js"></script>
 
 <script src="/lib/codeBlock/codeBlockFuction.js"></script>
@@ -1111,6 +1108,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <script src="/js/search.js"></script>
+
+<script src="/js/clock.js"></script>
 
 <script src="/js/webapp.js"></script>
 <!-- hexo injector body_end end --></body>
