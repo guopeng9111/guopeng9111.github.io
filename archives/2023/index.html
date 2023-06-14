@@ -31,7 +31,7 @@
   
     <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_8z08qcz5sq3.css">
   
-  <link rel="stylesheet" href="/css/style.css?v=1686705878499">
+  <link rel="stylesheet" href="/css/style.css?v=1686706538865">
 <meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="mdui-drawer-body-left">
@@ -194,16 +194,13 @@
         
         <div class="nexmoe-post-meta nexmoe-rainbow">
             <a><i class="nexmoefont icon-calendar-fill"></i>2023年06月14日</a>
-            <a><i class="nexmoefont icon-areachart"></i>594 字</a>
+            <a><i class="nexmoefont icon-areachart"></i>595 字</a>
             <a><i class="nexmoefont icon-time-circle-fill"></i>大概 3 分钟</a>
         </div>
         
         <article>
             
-                <span id="more"></span>
-<p>卸载Centos7自带的mariadb<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/hive/1.png" alt="hive" class="lazyload"><br>安装mysql<br>mkdir &#x2F;export&#x2F;server&#x2F;mysql<br>#上传mysql-5.7.29-1.el7.x86_64.rpm-bundle.tar 到上述文件夹下  解压<br>tar xvf mysql-5.7.29-1.el7.x86_64.rpm-bundle.tar<br>#执行安装<br>yum -y install libaio<br>[root@node1 mysql]rpm -ivh mysql-community-common-5.7.29-1.el7.x86_64.rpm mysql-community-libs-5.7.29-1.el7.x86_64.rpm mysql-community-client-5.7.29-1.el7.x86_64.rpm mysql-community-server-5.7.29-1.el7.x86_64.rpm<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/hive/2.png" alt="hive" class="lazyload"><br>mysql初始化设置<br>#初始化<br>mysqld –initialize<br>#更改所属组<br>chown mysql:mysql &#x2F;var&#x2F;lib&#x2F;mysql -R<br>#启动mysql<br>systemctl start mysqld.service<br>#查看生成的临时root密码<br>cat  &#x2F;var&#x2F;log&#x2F;mysqld.log<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/hive/3.png" alt="hive" class="lazyload"><br>修改root密码 授权远程访问 设置开机自启动    jFJJwa78B&#x3D;B<br>[root@node1 ~]# mysql -u root -p<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/hive/4.png" alt="hive" class="lazyload"><br>#更新root密码  设置为hadoop<br>mysql&gt; alter user user() identified by “hadoop”;<br>Query OK, 0 rows affected (0.00 sec)<br>#授权<br>mysql&gt; use mysql;<br>mysql&gt; GRANT ALL PRIVILEGES ON <em>.</em> TO ‘root‘@’%’ IDENTIFIED BY ‘hadoop’ WITH GRANT OPTION;<br>mysql&gt; FLUSH PRIVILEGES;<br>#mysql的启动和关闭 状态查看<br>systemctl stop mysqld<br>systemctl status mysqld<br>systemctl start mysqld<br>注：因之前设置过此处无截图<br>#建议设置为开机自启动服务<br>[root@node1 ~]# systemctl enable  mysqld<br>#查看是否已经设置自启动成功<br>[root@node1 ~]# systemctl list-unit-files | grep mysqld<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/hive/5.png" alt="hive" class="lazyload"><br>上传安装包 解压<br>tar zxvf apache-hive-3.1.2-bin.tar.gz<br>ln -s apache-hive-3.1.2-bin hive<br>解决Hive与Hadoop之间guava版本差异<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/hive/6.png" alt="hive" class="lazyload"><br>注：因之前cp过此处弹出覆盖。<br>修改配置文件<br>hive-env.sh<br>cd &#x2F;export&#x2F;server&#x2F;hive&#x2F;conf<br>mv hive-env.sh.template hive-env.sh<br>vim hive-env.sh<br>export HADOOP_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;hadoop<br>export HIVE_CONF_DIR&#x3D;&#x2F;export&#x2F;server&#x2F;hive&#x2F;conf<br>export HIVE_AUX_JARS_PATH&#x3D;&#x2F;export&#x2F;server&#x2F;hive&#x2F;lib<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/hive/7.png" alt="hive" class="lazyload"><br>hive-site.xml<br>vim hive-site.xml<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/hive/8.png" alt="hive" class="lazyload"><br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/hive/9.png" alt="hive" class="lazyload"><br>上传mysql jdbc驱动到hive安装包lib下<br>mysql-connector-java-5.1.32.jar<br>初始化元数据<br>cd &#x2F;export&#x2F;server&#x2F;hive&#x2F;<br>bin&#x2F;schematool -initSchema -dbType mysql -verbos<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/hive/10.png" alt="hive" class="lazyload"><br>启动hive后<br>启动metastore服务<br>&#x2F;export&#x2F;server&#x2F;hive&#x2F;bin&#x2F;hive –service metastore<br>启动hiveserver2服务<br>nohup &#x2F;export&#x2F;server&#x2F;hive&#x2F;bin&#x2F;hive –service hiveserver2 &amp;<br>#注意 启动hiveserver2需要一定的时间  不要启动之后立即beeline连接 可能连接不上<br>beeline客户端连接<br>拷贝node1安装包到beeline客户端机器上（node3）<br>scp -r &#x2F;export&#x2F;server&#x2F;apache-hive-3.1.2-bin&#x2F; root@node3:&#x2F;export&#x2F;server&#x2F;<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/hive/11.png" alt="hive" class="lazyload"><br>修改<br>在hadoop的配置文件core-site.xml中添加如下属性：<br><property><br>        <name>hadoop.proxyuser.root.hosts</name><br>      <value><em></em></value><br></property><br><property><br>        <name>hadoop.proxyuser.root.groups</name><br>        <value></value><br></property><br>连接访问<br>&#x2F;export&#x2F;server&#x2F;hive&#x2F;bin&#x2F;beeline</p>
-<p>beeline&gt; ! connect jdbc:hive2:&#x2F;&#x2F;node1:10000<br>beeline&gt; root<br>beeline&gt; 直接回车<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/hive/12.png" alt="hive" class="lazyload"></p>
-
+                <p>hive</p>
             
         </article>
     </div>
@@ -226,9 +223,7 @@
         
         <article>
             
-                <span id="more"></span>
-<p>1、Git 的下载<br>Git下载地址为 git-scm.com或者gitforwindows.org。<br>1.2 Git 的安装<br>我下载的版本是 Git-2.40.0-64-bit.exe，接下来我们就对这个版本进行安装工作。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/1.png" alt="git" class="lazyload"><br>1.2.2 选择安装目录<br>可点击 “Browse…” 更换目录，也可直接在方框里面改，我一般直接将 “C” 改为 “D”，这样就直接安装在 D 盘里了。点击 [next] 到第三步。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/2.png" alt="git" class="lazyload"><br>1.2.3 选择安装组件<br>图中这些英文都比较简单，我已经把大概意思翻译出来了，大家根据自己的需要选择勾选。点击 [next] 到第四步。<br>注：最后一个选项打勾的话，需要下载 Windows Terminal 配合 Git Bash使用，如图：<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/3.png" alt="git" class="lazyload"><br>1.2.4 选择开始菜单文件夹<br>方框内 Git 可改为其他名字，也可点击 “Browse…” 选择其他文件夹或者给”Don’t create a Start Menu folder” 打勾不要文件夹，点击 [next] 到第五步。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/4.png" alt="git" class="lazyload"><br>安装成功后在开始菜单里的图如下：<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/5.png" alt="git" class="lazyload"><br>2、Git初始化<br>初始化一个本地仓<br> 选择新建的git_test文件，右键单机，选择Git在这里创建版本库。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/6.png" alt="git" class="lazyload"><br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/7.png" alt="git" class="lazyload"><br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/8.png" alt="git" class="lazyload"><br>   操作后可以发现在git_test文件图标上出现了绿色的小勾，说明本地仓库创建成功，在进入该文件夹后还可以发现一个.git文件。此时，git初始化仓库就完成了。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/9.png" alt="git" class="lazyload"><br>概念即详解：<br>图中有远程仓库、本地仓库、工作区以及暂存区。<br>本地仓库：是在开发人员自己电脑上的Git仓库,存放我们的代码。<br>远程仓库：是在远程服务器上的Git仓库，一般是上传至企业的代码总仓库。<br>工作区: 我们自己编写代码的区域。<br>暂存区: 在本地仓库中的一个特殊的文件叫做暂存区,用来临时存储我们即将要提交的文件。<br>3、Git提交<br>    右键文件，找到git提交选项，单击。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/10.png" alt="git" class="lazyload"><br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/11.png" alt="git" class="lazyload"><br>提交成功，文件的右下角出现绿色的对号。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/12.png" alt="git" class="lazyload"><br>比较差异。<br>    右键文件，在下拉列表中选择tortoiseGit，选择比较差异。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/13.png" alt="git" class="lazyload"><br>    若文件已被修改过，则在弹出页面中会有如下显示。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/14.png" alt="git" class="lazyload"><br>忽略提交。<br>代码合并时会报错,我们叫做冲突。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/15.png" alt="git" class="lazyload"><br>        若提交过程中发生冲突，则可以在tortoiseGit选择将其添加到忽略列表进行提交。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/16.png" alt="git" class="lazyload"><br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/17.png" alt="git" class="lazyload"><br>分支的合并与删除<br>切换到主版本。<br>右键 合并即可将需求1 写的代码合并至主分支。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/18.png" alt="git" class="lazyload"><br>删除分支。<br>标签tag<br>    标签的创建。<br>    右键文件，选择tortoiseGit，在下拉列表中选择创建标签。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/19.png" alt="git" class="lazyload"><br>标签的切换与删除。<br>    右键文件，选择tortoiseGit，在下拉列表中选择标签切换&#x2F;删除。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/20.png" alt="git" class="lazyload"><br>3、远程仓库<br>    搭建一个单间的局域网服务器共享我们的代码。<br>    在gti克隆选项下，填写url以及上传目录。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/21.png" alt="git" class="lazyload"><br>    将代码上传至自己的gitee仓库中。<br>4、Git命令行<br>    安装Git后首先要做的事情是设置用户名称和email地址。这是非常重要的，因为每次Git提交都会使用该用户信息。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/22.png" alt="git" class="lazyload"><br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/23.png" alt="git" class="lazyload"><br>初始化本地仓库 init<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/24.png" alt="git" class="lazyload"><br>克隆clone<br>    git clone ＋ Git仓库地址。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/25.png" alt="git" class="lazyload"><br>查看状态status<br>    # 查看状态<br>git status<br>#查看状态 使输出信息更加简洁<br>git status –s<br>添加add<br>    # 将未跟踪的文件加入暂存区<br>git add  &lt;文件名&gt;<br>#将暂存区的文件取消暂存 (取消 add )<br>git reset  &lt;文件名&gt;<br>修改commit<br>    # git commit 将暂存区的文件修改提交到本地仓库<br>git commit -m “日志信息”  &lt;文件名&gt;<br>删除rm<br>    # 从本地工作区 删除文件<br>git rm &lt;文件名&gt;<br>#如果本工作区库误删, 想要回退<br>git checkout head &lt;文件名&gt;<br>5、git命令远程仓库操作<br>查看远程<br>        # 查看远程  列出指定的每一个远程服务器的简写<br>git remote<br>#查看远程 , 列出 简称和地址<br>git remote  -v<br>#查看远程仓库详细地址<br>git remote show  &lt;仓库简称&gt;<br>    添加&#x2F;移除远测仓库<br>        # 添加远程仓库<br>git remote add <shortname> <url><br>#移除远程仓库和本地仓库的关系(只是从本地移除远程仓库的关联关系，并不会真正影响到远程仓库)<br>git remote rm <shortname><br>    从远程仓库获取代码<br>        # 从远程仓库克隆<br>git clone <url><br>#从远程仓库拉取 (拉取到.git 目录,不会合并到工作区,工作区发生变化)<br>git fetch  <shortname>  &lt;分支名称&gt;<br>#手动合并  把某个版本的某个分支合并到当前工作区<br>git merge <shortname>&#x2F;&lt;分支名称&gt;<br>#从远程仓库拉取 (拉取到.git 目录,合并到工作区,工作区不发生变化) &#x3D; fetch+merge<br>git pull  <shortname>  &lt;分支名称&gt;<br>git pull  <shortname>  &lt;分支名称&gt;  –allow-unrelated-histories  #  强制拉取合并<br>    分支操作<br>        # 默认 分支名称为 master<br>#列出所有本地分支<br>git branch<br>#列出所有远程分支<br>git branch -r<br>#列出所有本地分支和远程分支<br>git branch -a<br>#创建分支<br>git branch &lt;分支名&gt;<br>#切换分支<br>git checkout &lt;分支名&gt;<br>#删除分支(如果分支已经修改过,则不允许删除)<br>git branch -d  &lt;分支名&gt;<br>#强制删除分支<br>git branch -D  &lt;分支名&gt;<br>    提交分支<br>        # 提交分支至远程仓库<br>git push &lt;仓库简称&gt; &lt;分支名称&gt;	<br>#合并分支 将其他分支合并至当前工作区<br>git merge &lt;分支名称&gt;<br>#删除远程仓库分支<br>git push origin –d branchName<br>    标签操作<br>        # 列出所有tag<br>git tag<br>#查看tag详细信息<br>git show [tagName]<br>#新建一个tag<br>git tag [tagName]<br>#提交指定tag<br>$ git push [仓库简称] [tagName]<br> 新建一个分支，指向某个tag<br>$ git checkout -b [branch] [tag]<br>#删除本地tag<br>$ git tag -d [tag]<br> 删除远程tag (注意 空格)<br>$ git push origin :refs&#x2F;tags&#x2F;[tag]<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/26.png" alt="git" class="lazyload"><br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/14/git/27.png" alt="git" class="lazyload"></shortname></shortname></shortname></shortname></url></shortname></url></shortname></p>
-
+                <p>git</p>
             
         </article>
     </div>
@@ -337,26 +332,13 @@
         
         <div class="nexmoe-post-meta nexmoe-rainbow">
             <a><i class="nexmoefont icon-calendar-fill"></i>2023年06月13日</a>
-            <a><i class="nexmoefont icon-areachart"></i>75 字</a>
+            <a><i class="nexmoefont icon-areachart"></i>77 字</a>
             <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
         </div>
         
         <article>
             
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="bash">$ hexo server
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="bash">$ hexo generate
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="bash">$ hexo deploy
-</code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.<br>hello world<br>hello</p>
             
         </article>
     </div>
@@ -1076,7 +1058,7 @@
 <script src="/lib/fancybox/js/jquery.fancybox.min.js"></script>
 
 
-<script src="/js/app.js?v=1686705878500"></script>
+<script src="/js/app.js?v=1686706538866"></script>
 
 <script src="https://lib.baomitu.com/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
 <script>
@@ -1105,11 +1087,11 @@
 
 <link rel="stylesheet" href="/lib/codeBlock/matery.css">
 
+<script src="/js/clock.js"></script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <script src="/js/search.js"></script>
-
-<script src="/js/clock.js"></script>
 
 <script src="/js/webapp.js"></script>
 <!-- hexo injector body_end end --></body>
