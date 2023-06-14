@@ -31,7 +31,7 @@
   
     <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_8z08qcz5sq3.css">
   
-  <link rel="stylesheet" href="/css/style.css?v=1686705690523">
+  <link rel="stylesheet" href="/css/style.css?v=1686705747171">
 <meta name="generator" content="Hexo 6.3.0"></head>
 
 <body class="mdui-drawer-body-left">
@@ -269,14 +269,13 @@
         
         <div class="nexmoe-post-meta nexmoe-rainbow">
             <a><i class="nexmoefont icon-calendar-fill"></i>2023年06月13日</a>
-            <a><i class="nexmoefont icon-areachart"></i>319 字</a>
+            <a><i class="nexmoefont icon-areachart"></i>320 字</a>
             <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
         </div>
         
         <article>
             
-                <p>一、（创建虚拟环境）<br>1.安装Python环境到windows上<br>Windows系统配置Anaconda<br>打开资料中提供的:Anaconda3-2021.05-Windows-x86_64.exe文件<br>第一步：上传Spark安装包<br>1.对于安装包的获取，共有两种途径方法。<br>1)方法一、通过md文档中提供的开源地址进行自主下载。<br>下载地址<br><a target="_blank" rel="noopener" href="https://dlcdn.apache.org/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz">https://dlcdn.apache.org/spark/spark-3.2.0/spark-3.2.0-bin-hadoop3.2.tgz</a><br>2)方法二、通过老师所给的链接，从网盘下载相应组件安装包。<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/13/local/1.png" alt="local" class="lazyload"><br>2.上传这个Spark安装包文件到Linux服务器中<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/13/local/2.png" alt="local" class="lazyload"><br>解压下载的Spark安装包<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/13/local/3.png" alt="local" class="lazyload"><br>tar -zxvf spark-3.2.0-bin-hadoop3.2.tgz -C &#x2F;export&#x2F;server&#x2F;<br>配置环境变量：<br>#HADOOP_HOME<br>export SPARK_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;spark<br>#PYSPARK_PYTHON<br>export PYSPARK_PYTHON&#x3D;&#x2F;export&#x2F;server&#x2F;anaconda3&#x2F;envs&#x2F;pyspark&#x2F;bin&#x2F;python<br>#HADOOP_CONF_DIR<br>export HADOOP_CONF_DIR&#x3D;$HADOOP_HOME&#x2F;etc&#x2F;hadoop<br>#ZOOKEEPER_HOME<br>export ZOOKEEPER_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;zookeeper<br>export PATH&#x3D;$PATH:$ZOOKEEPER_HOME&#x2F;bin<br>export JAVA_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;jdk1.8.0_2<br>重置环境变量<br>Source &#x2F;etc&#x2F;profile<br>PYSPARK_PYTHON和 JAVA_HOME 需要同样配置在:<code>/root/.bashrc</code>中<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/13/local/4.png" alt="local" class="lazyload"><br>上传文件到Linux服务器中<br>解压文件<br>tar -zxvf spark-3.2.0-bin-hadoop3.2.tgz -C &#x2F;export&#x2F;server&#x2F;<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/13/local/5.png" alt="local" class="lazyload"><br>设置软链接:<br>ln -s &#x2F;export&#x2F;server&#x2F;spark-3.2.0-bin-hadoop3.2 &#x2F;export&#x2F;server&#x2F;spark<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/13/local/6.png" alt="local" class="lazyload"><br>进去pyspark<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/13/local/7.png" alt="local" class="lazyload"><br>测试<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/13/local/8.png" alt="local" class="lazyload"><br>打开服务器4040：<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/13/local/9.png" alt="local" class="lazyload"><br>Jps查看<br><img data-fancybox="gallery" data-sizes="auto" data-src="/2023/06/13/local/10.png" alt="local" class="lazyload"></p>
-
+                <p>local</p>
             
         </article>
     </div>
@@ -1078,7 +1077,7 @@
 <script src="/lib/fancybox/js/jquery.fancybox.min.js"></script>
 
 
-<script src="/js/app.js?v=1686705690524"></script>
+<script src="/js/app.js?v=1686705747172"></script>
 
 <script src="https://lib.baomitu.com/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
 <script>
